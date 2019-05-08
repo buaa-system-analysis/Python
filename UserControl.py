@@ -2,16 +2,29 @@ import pymongo
  
 myclient = pymongo.MongoClient('mongodb://localhost:27017/')
 mydb = myclient['test']
+user = mydb["user"]
 
 def login(username,password):
-	mycol = mydb["user"]
+	try:
+		nowUser = user.find_one({"username":username})
 
-	x = mycol.find_one({"username":username,"password":password})
-
-	print(x);
-	if (x != None):
-		return x["_id"];
-	else:
+		if (nowUser == None):
+			return -100;
+		if (nowUser["password"] != password):
+			return -200;
+		
+		uid = int(nowUser["_id"]);
+		return uid;
+	except:
 		return 0;
 
-print(login("aaa","12346"));
+def register(username,password,email):
+	try:
+		nowid = len(user.find())+1;
+		nowUser = {"_id": nowid, "username": username,"password": password};
+		result = user.insert_one(nowUser);
+
+		print(result);
+		return nowid;
+	except:
+		return 0;
