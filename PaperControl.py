@@ -6,7 +6,7 @@ mycol = mydb["purchaseList"]
 
 def purchase(userID, paperID):
     try:
-        result = mycol.insert_one({"_id":"userID", "userID":userID, "paperID":paperID})
+        result = mycol.insert_one({"_id":userID+paperID, "userID":userID, "paperID":paperID})
     except pymongo.errors.DuplicateKeyError:
         return False
     return True
@@ -23,9 +23,9 @@ def download(userID, paperID):
         return None
 
 
-# print(purchase('1', '11'))
-# print(purchase('1', '11'))
-# print(purchase('22', '22'))
-# print(download('1','11'))
+#print(purchase('1', '11'))
+#print(purchase('1', '12'))
+#print(purchase('1', '12'))
+#print(download('1','11'))
 # print(purchase('1', '33'))
 # print(purchase('3', '45'))
