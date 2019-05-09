@@ -74,5 +74,3 @@ def changePassword(userID,oldPassword,newPassword):
 		return True;
 	except:
 		return False;
-
-print(register("z242aw","1111","!24"))
