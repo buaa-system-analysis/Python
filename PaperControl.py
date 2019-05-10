@@ -1,12 +1,12 @@
 import pymongo
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
+myclient = pymongo.MongoClient('mongodb://106.14.150.33:27017')
 mydb = myclient["test"]
 mycol = mydb["purchaseList"]
 
 def purchase(userID, paperID):
     try:
-        result = mycol.insert_one({"_id":userID+paperID, "userID":userID, "paperID":paperID})
+        mycol.insert_one({"_id":userID+paperID, "userID":userID, "paperID":paperID})
     except pymongo.errors.DuplicateKeyError:
         return False
     return True
@@ -23,9 +23,9 @@ def download(userID, paperID):
         return None
 
 
-#print(purchase('1', '11'))
-#print(purchase('1', '12'))
-#print(purchase('1', '12'))
-#print(download('1','11'))
+# print(purchase('1', '11'))
+# print(purchase('1', '12'))
+# print(purchase('1', '12'))
+# print(download('1','13'))
 # print(purchase('1', '33'))
 # print(purchase('3', '45'))
