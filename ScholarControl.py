@@ -2,10 +2,10 @@ import re
 
 import pymongo
 
-client = pymongo.MongoClient(host='localhost', port=27017)
-db = client.test
-scholar = db.scholar
-user = db.user
+myclient = pymongo.MongoClient("mongodb://106.14.150.33:27017/")
+db = myclient['test']
+scholar = db['scholar']
+user = db['user']
 
 
 def scholar_edit(scholarID, name, organization, resourceField):
