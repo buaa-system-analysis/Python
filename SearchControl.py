@@ -15,15 +15,13 @@ def searchPaper(keyword):
     try:
         results = paper.find({'$or':[{'title':{'$regex': keyword, '$options':'i'}},{'authors':{'$regex': keyword, '$options':'i'}},{'abstract':{'$regex': keyword, '$options':'i'}}]})
         if results.count():
-            for result in results:
-                print(result)
-            return results
+            return list(results)
         else:
             return None
     except Exception:
         return None
 
-#searchPaper('NLP')
+#print(searchPaper('NLP'))
 
 def addPaper(title, authors, abstract, publishment, citation, field, price, fulltextURL):
     paper = mydb['Paper']
