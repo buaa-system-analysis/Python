@@ -45,6 +45,8 @@ def register(username,password,email):
 	except:
 		return 0;
 
+
+
 def find(userID):
 	try:
 		nowUser = user.find_one({"_id":userID});
