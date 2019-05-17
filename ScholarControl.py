@@ -8,7 +8,7 @@ scholar = db['scholar']
 user = db['user']
 
 
-def scholar_edit(scholarID, name, organization, resourceField):
+def editScholarInfo(scholarID, name, organization, resourceField):
     try:
         scholar.update_one({"_id": scholarID}, {"$set": {
                            "name": name, "organization": organization, "resourceField": resourceField}})
@@ -16,7 +16,7 @@ def scholar_edit(scholarID, name, organization, resourceField):
     except:
         return False
 
-def scholar_auth(userID, email):
+def authenticate(userID, email):
     try:
         user_now = user.find_one({"_id":userID})
         if not user_now:
