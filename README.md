@@ -21,7 +21,9 @@ Backend of Platform
 >
 >​	"resourceID" : 该篇论文的ID,
 >
->​	"content" : 评论内容
+>​	"content" : 评论内容,
+>
+>​	"time" : 评论的时间
 >
 >}...]
 
