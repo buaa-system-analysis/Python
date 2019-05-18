@@ -11,4 +11,13 @@ def comment(userID, resourceID, content):
         return False
     return True
 
+def findComment(resourceID):
+	try:
+		results = mycol.find({"resourceID" : resourceID})
+		if (results.count()):
+			return list(results)
+		return None
+	except:
+		return None
+
 # print(comment('1','2','3'))
