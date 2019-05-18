@@ -94,6 +94,23 @@ def collectPaper(userID, paperListID, cmd, paperID):
         return False
 
 
+def searchUserid(userID):
+    try:
+        mydict = {"userID": userID}
+        user_list = list(colcol.find(mydict))
+        return user_list
+    except:
+        return None
+
+
+def searchScholar(scholarID):
+    try:
+        mydict = {"scholarID": scholarID}
+        scholar_list = list(slcol.find(mydict))
+        return scholar_list
+    except:
+        return None
+
 # print("### BEFORE ###")
 # for x in mycol.find():
 #     print(x)
