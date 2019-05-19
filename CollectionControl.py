@@ -1,5 +1,6 @@
 import pymongo
 from SearchControl import getPaperByID
+from ScholarControl import findScholar
 
  
 myclient = pymongo.MongoClient('mongodb://106.14.150.33:27017')
@@ -110,11 +111,13 @@ def getPaperList(userID,paperListID):
 
 def getSubscribeList(userID):
     try:
-        mydict = {"userID": userID}
-        scholar_list = slcol.find(mydict)
-        if (scholar_list.count()):
-        	return list(scholar_list)
-        return []
+        results = slcol.find({"userID": userID})
+
+        finalresults = []
+        for result in results:
+        	finalresults.append(findScholar(result["scholarID"]))
+        return finalresults
+
     except:
         return None
 
