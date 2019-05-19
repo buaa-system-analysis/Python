@@ -13,7 +13,7 @@ Backend of Platform
 >
 > [{
 >
-> 			"_id":ID,
+> 		"_id":ID,
 > 	        "title":title,
 > 	        "authors":authors,
 > 	        "abstract": abstract,
@@ -22,11 +22,6 @@ Backend of Platform
 > 	        "field":field,
 > 	        "price":price,
 > 	        "fulltextURL":fulltextURL
-> ​	"resourceID" : 该篇论文的ID,
->
-> ​	"content" : 评论内容,
->
-> ​	"time" : 评论的时间
 >
 > }...]
 
