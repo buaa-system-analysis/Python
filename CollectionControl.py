@@ -1,4 +1,5 @@
 import pymongo
+from SearchControl import getPaperByID
 
  
 myclient = pymongo.MongoClient('mongodb://106.14.150.33:27017')
@@ -76,7 +77,7 @@ def collectPaper(userID, paperListID, cmd, paperID):
     try:
         if not crlcol.find_one({"userID": userID, "paperListID": paperListID}):
             return False
-        mydict = {"paperListID": paperListID, "paperID": paperID}
+        mydict = {"userID": userID, "paperListID": paperListID, "paperID": paperID}
         found = plcol.find_one(mydict)
         if cmd:
             if not found:
@@ -94,20 +95,26 @@ def collectPaper(userID, paperListID, cmd, paperID):
         return False
 
 
-def searchUserid(userID):
+def getPaperList(userID,paperListID):
     try:
-        mydict = {"userID": userID}
-        user_list = list(colcol.find(mydict))
-        return user_list
+        results = plcol.find({"userID" : userID, "paperListID" : paperListID })
+
+        finalresults = []
+        for result in results:
+        	finalresults.append(getPaperByID(result["paperID"]))
+        return finalresults
+
     except:
         return None
 
 
-def searchScholar(scholarID):
+def getSubscribeList(userID):
     try:
-        mydict = {"scholarID": scholarID}
-        scholar_list = list(slcol.find(mydict))
-        return scholar_list
+        mydict = {"userID": userID}
+        scholar_list = slcol.find(mydict)
+        if (scholar_list.count()):
+        	return list(scholar_list)
+        return []
     except:
         return None
 

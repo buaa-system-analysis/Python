@@ -4,12 +4,6 @@ myclient = pymongo.MongoClient("mongodb://106.14.150.33:27017/")
 mydb = myclient["test"]
 mycol = mydb["search"]
 
-def search(category, keyword):
-    try:
-        return [{ "item" : 1, "scholar" : 1 }, { "item" : 2, "scholar" : 2 },{ "item" : 3, "scholar" : 3 }]
-    except pymongo.errors.DuplicateKeyError:
-        return None
-
 def searchPaper(keyword):
     paper = mydb['Paper']
     try:
@@ -43,6 +37,13 @@ def addPaper(title, authors, abstract, publishment, citation, field, price, full
     except:
         pass
 
+def getPaperByID(paperID):
+    paper = mydb['Paper']
+    try:
+        results = paper.find_one({"_id" : paperID});
+        return results
+    except:
+        return None
 
 # addPaper(title='Nlp For Term Variant Extraction: Synergy Between Morphology, Lexicon, And Syntax ',
 #          authors=['Christian Jacquemin', 'Evelyne Tzoukermann'],
