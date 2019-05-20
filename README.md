@@ -25,7 +25,7 @@ Backend of Platform
 >
 > ### addScholar(name):
 >
-> ​	通过name字段新建一个新的学者，返回值为该学者的scholarID
+> ​	通过name字段新建一个新的学者，此时其他字段基本上都是空，如果要顺带改其他信息请调用editScholarInfo。返回值为该学者的scholarID
 >
 > 
 >
