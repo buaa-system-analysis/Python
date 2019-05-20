@@ -37,45 +37,6 @@ Backend of Platform
 
 
 
-> 通过userID和paperListID返回该list中所有论文的详细信息。
->
-> 返回格式：list
->
-> [{
->
-> ```
-> 	"_id":ID,
->         "title":title,
->         "authors":authors,
->         "abstract": abstract,
->         "publishment":publishment,
->         "citation":citation,
->         "field":field,
->         "price":price,
->         "fulltextURL":fulltextURL
-> ```
->
-> }...]
-
-> 添加了getSubscribeList(userID)函数
->
-> 通过userID返回该user关注的所有学者的详细信息。
->
-> 返回格式：list
->
-> [{
->
-> ```
-> 		"_id":ID,
->      "name":name,
->      "organization": organization,
->      "resourceField": resourceField
-> ```
->
-> }...]
-
-
-
 ## 2019-05-19 ：
 
 #### 更新了CollectionControl.py
