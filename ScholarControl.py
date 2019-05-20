@@ -11,8 +11,7 @@ user = db['user']
 
 def editScholarInfo(scholarID, name, organization, resourceField):
     try:
-        scholar.update_one({"_id": scholarID}, {"$set": {
-                           "name": name, "organization": organization, "resourceField": resourceField}})
+        scholar.update_one({"_id": scholarID}, {"$set": { "name": name, "organization": organization, "resourceField": resourceField}})
         return True
     except:
         return False
@@ -25,7 +24,7 @@ def authenticate(userID, email):
         if len(email)>7:
             if re.match("^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$", email) != None:
                 scholar_id = scholar.find().count() + 1
-                new_scholar = {
+                new_Scholar = {
                     "_id": scholar_id, 
                     "name": "",
                     "email": email,
@@ -64,15 +63,10 @@ def findScholar(scholarID):
 
 def findscholarByName(name):
     try:
-        result = []
-        pattern = '.*'.join(name)
-        regex = re.compile(pattern)
-        collection = scholar.find()
-        for item in collection:
-            match = regex.search(item)
-            if match:
-                result.append(item)
-        return result
+        results = scholar.find({"name" : { "$regex" : ".*" + name + ".*" } })
+        if (results.count()):
+            return list(results)
+        return []
     except:
         return None
 
@@ -84,8 +78,7 @@ def deleteScholar(scholarID):
     except:
         return False
 
-
-# print(findscholarByName("vic"))
+#print(authenticate(1,"c111@11.cc"))
 # print(findScholar(1))
 # print(deleteScholar(1))
 
