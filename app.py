@@ -6,7 +6,7 @@ import json
 from UserControl import login, register, find, editInfo, changePassword, editUserInfo
 from PaperControl import purchase, download
 from ResourceControl import comment, findComment
-from ScholarControl import editScholarInfo, authenticate, manageResource, addScholar, findScholarByKwd
+from ScholarControl import editScholarInfo, authenticate, manageResource, addScholar, findScholarByKwd, findScholar
 from SearchControl import searchPaper
 from CollectionControl import subscribe, manageCollection, collectPaper, getPaperList, getSubscribeList
 import pymongo
@@ -367,6 +367,27 @@ def scholar_add():
             "msg": "OK",
             "data": {
                 "scholarID": scholarID,
+            }
+        }
+    except Exception as e:
+        ans = error(e)
+    write_log(data, ans, sys._getframe().f_code.co_name)
+    return json.dumps(ans)
+
+
+@app.route("/api/scholar/find_by_id", methods=['POST'])
+def scholar_find_by_id():
+    data = json.loads(request.data)
+    try:
+        code = 100
+        scholarInfo = findScholar(kwd=data['scholarID'])
+        if not scholarInfo:
+            code = 405
+        ans = {
+            "code": code,
+            "msg": "OK",
+            "data": {
+                "scholarInfo": scholarInfo,
             }
         }
     except Exception as e:
