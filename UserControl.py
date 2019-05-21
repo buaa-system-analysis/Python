@@ -46,10 +46,9 @@ def register(username,password,email):
 		return 0;
 
 
-
 def find(userID):
 	try:
-		nowUser = user.find_one({"_id":ObjectId(str(userID))});
+		nowUser = user.find_one({"_id":userID});
 
 		if not nowUser:
 			return None;
