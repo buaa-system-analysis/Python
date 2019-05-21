@@ -380,7 +380,7 @@ def scholar_find_by_id():
     data = json.loads(request.data)
     try:
         code = 100
-        scholarInfo = findScholar(kwd=data['scholarID'])
+        scholarInfo = findScholar(scholarID=data['scholarID'])
         if not scholarInfo:
             code = 405
         ans = {
