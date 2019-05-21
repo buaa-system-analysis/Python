@@ -5,11 +5,10 @@ from ScholarControl import findScholar
  
 myclient = pymongo.MongoClient('mongodb://106.14.150.33:27017')
 mydb = myclient["test"]
-slcol = mydb["subscribeList"] # 订阅列表，{"userID": userID, "scholarID": scholarID}
-plcol = mydb['paperList'] # 论文列表，{"paperListID": paperListID, "paperID": paperID}
-crlcol = mydb['createList'] # 创建的论文列表，{"userID": userID, "paperListID": paperListID}
-colcol = mydb['collectionList'] # 收藏的（他人的）论文列表，{"userID": userID, "paperListID": paperListID}
-
+slcol = mydb["subscribeList"]
+plcol = mydb['paperList']
+crlcol = mydb['createList'] 
+colcol = mydb['collectionList']
 
 # mydict = { "userID": "00001", "scholarID": "00057"}
  

@@ -18,7 +18,7 @@ def download(userID, paperID):
         mycol1 = mydb['paperList']
         result = mycol1.find({"paperID":paperID})
         if result.count():
-            return result[0]['url'] # 返回下载链接 需根据paperID查找对应的
+            return result[0]['url']
     else:
         return None
 
