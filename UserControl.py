@@ -66,6 +66,14 @@ def editInfo(userID,introduction,organization):
 	except:
 		return False;
 
+def editUserInfo(userID,data):
+	try:
+		user.update_one({"_id":userID}, { "$set": data });
+
+		return True;
+	except:
+		return False;
+
 def changePassword(userID,oldPassword,newPassword):
 	try:
 		if not user.find_one({"_id":userID,"password":oldPassword}):
