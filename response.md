@@ -1,4 +1,4 @@
-﻿## 2019-05-21 :
+## 2019-05-21 :
 
 #### 更新了UserControl.py，需要新的接口（原有的editInfo函数么得用了）
 
@@ -18,6 +18,7 @@
 
 #### 更新了ScholarControl.py，麻烦请修改一下app.py的接口
 
+
 > 更改接口如下
 >
 > 
@@ -34,18 +35,21 @@
 > ### authenticate(userID，scholarID, email):
 >
 > 返回值为是否成功添加了该认证信息（不是是否认证成功）
+
 >
 > 
 >
 > ### addScholar(name):
 >
 > 通过name字段新建一个新的学者，此时其他字段基本上都是空，如果要顺带改其他信息请调用editScholarInfo。返回值为该学者的scholarID
+
 >
 > 
 >
 > ### findScholarByKwd(kwd):
 >
 > 通过关键字查找学者，会返回全部信息包括id，kwd为''时会返回全部学者的信息，通过这个可以获取id然后editScholarInfo
+
 
 
 
