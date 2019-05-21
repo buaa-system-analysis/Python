@@ -1,6 +1,14 @@
 # Python
 Backend of Platform
 
+## Usage
+
+Run back end server:
+
+```
+python app.py
+```
+
 ## 2019-05-21:
 
 #### 前端新需求：
