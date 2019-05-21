@@ -5,8 +5,11 @@
 > ###编辑用户信息 editUserInfo
 > ####参数说明
 > + (int)userID : 用户唯一标识符ID
-> + (JSON)data : 需要修改的内容，要改多少字段就有多少字段，比如修改name字段为zyw，password字段为123456，而其他不修改的话，data就是{"name":"zyw","password":"123456"}
->
+> + (dict)data : 需要修改的内容，要改多少字段就有多少字段，比如修改name字段为zyw，password字段为123456，而其他不修改的话，data就是{"name":"zyw","password":"123456"}
+> 
+> 所有可能的字段名(下面没写引号）：
+> name , birthday , sex , email , phone , introduction , password
+> 
 > ####返回值说明
 > + (bool)success : 返回是否成功修改
 
@@ -21,7 +24,10 @@
 >
 > ### editScholarInfo(scholarID, data):
 >
-> data是一个json，包含了一整个学者要修改的所有信息（除了ID），比如要修改name为a，organization为b，data就是{ "name" : "a","organization" : "b" } 这样
+> data是一个dict，包含了一整个学者要修改的所有信息（除了ID），比如要修改name为a，organization为b，data就是{ "name" : "a","organization" : "b" } 这样
+>
+> 所有可能的字段名为:
+> name, email, organization, fields, citation, h_index, g_index, papers, projects, patents, coAuthors, coOrgs
 >
 > 返回值是一个bool表示是否修改成功
 >
