@@ -49,7 +49,7 @@ def register(username,password,email):
 
 def find(userID):
 	try:
-		nowUser = user.find_one({"_id":userID});
+		nowUser = user.find_one({"_id":ObjectId(str(userID))});
 
 		if not nowUser:
 			return None;
