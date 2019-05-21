@@ -2,15 +2,15 @@
 
 #### 更新了UserControl.py，需要新的接口（原有的editInfo函数么得用了）
 
-> ###编辑用户信息 editUserInfo
-> ####参数说明
+> ### 编辑用户信息 editUserInfo
+> #### 参数说明
 > + (int)userID : 用户唯一标识符ID
 > + (dict)data : 需要修改的内容，要改多少字段就有多少字段，比如修改name字段为zyw，password字段为123456，而其他不修改的话，data就是{"name":"zyw","password":"123456"}
 > 
 > 所有可能的字段名(下面没写引号）：
 > name , birthday , sex , email , phone , introduction , password
 > 
-> ####返回值说明
+> #### 返回值说明
 > + (bool)success : 返回是否成功修改
 
 
