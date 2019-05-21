@@ -8,7 +8,7 @@ Backend of Platform
 
 ## 2019-05-20 ：
 
-#### 更新了ScholarControl.py，麻烦请修改一下app.py的接口
+#### 更新了ScholarControl.py
 
 
 ## 2019-05-19 ：
