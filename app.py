@@ -3,10 +3,10 @@ from flask import render_template
 from flask import request
 from flask_cors import CORS
 import json
-from UserControl import login, register, find, editInfo, changePassword
+from UserControl import login, register, find, editInfo, changePassword, editUserInfo
 from PaperControl import purchase, download
 from ResourceControl import comment, findComment
-from ScholarControl import editScholarInfo, authenticate, manageResource
+from ScholarControl import editScholarInfo, authenticate, manageResource, addScholar, findScholarByKwd
 from SearchControl import searchPaper
 from CollectionControl import subscribe, manageCollection, collectPaper, getPaperList, getSubscribeList
 import pymongo
@@ -168,6 +168,31 @@ def user_change_pwd():
     return json.dumps(ans)
 
 
+@app.route("/api/user/edit", methods=['POST'])
+def user_edit():
+    data = json.loads(request.data)
+    try:
+        code = 100
+        info = {}
+        for key in data['info'].keys():
+            if data['info'][key]:
+                info[key] = data['info'][key]
+        flag = editUserInfo(userID=data['scholarID'], data=info)
+        if not flag:
+            code = 401
+        ans = {
+            "code": code,
+            "msg": "OK",
+            "data": {
+                "flag": flag,
+            }
+        }
+    except Exception as e:
+        ans = error(e)
+
+    return json.dumps(ans)
+
+
 @app.route("/api/paper/purchase", methods=['POST'])
 def paper_purchase():
     data = json.loads(request.data)
@@ -191,12 +216,12 @@ def paper_purchase():
     return json.dumps(ans)
 
 
-@app.route("/api/user/downloads", methods=['POST'])
-def user_downloads():
+@app.route("/api/paper/downloads", methods=['POST'])
+def paper_downloads():
     data = json.loads(request.data)
     try:
         code = 100
-        url = download(paperID=data['paperID'])
+        url = download(userID=data['userID'], paperID=data['paperID'])
         if not url:
             code = 202
         ans = {
@@ -265,7 +290,11 @@ def scholar_edit():
     data = json.loads(request.data)
     try:
         code = 100
-        flag = editScholarInfo(scholarID=data['scholarID'], name=data['name'], organization=data['organization'], resourceField=data['resourceField'])
+        info = {}
+        for key in data['info'].keys():
+            if data['info'][key]:
+                info[key] = data['info'][key]
+        flag = editScholarInfo(scholarID=data['scholarID'], data=info)
         if not flag:
             code = 401
         ans = {
@@ -286,7 +315,7 @@ def scholar_auth():
     data = json.loads(request.data)
     try:
         code = 100
-        flag = authenticate(userID=data['userID'], email=data['email'])
+        flag = authenticate(userID=data['userID'], scholarID=data['scholarID'], email=data['email'])
         if not flag:
             code = 402
         ans = {
@@ -304,7 +333,6 @@ def scholar_auth():
     return json.dumps(ans)
 
 
-'''
 @app.route("/api/scholar/manage", methods=['POST'])
 def scholar_manage():
     data = json.loads(request.data)
@@ -322,11 +350,50 @@ def scholar_manage():
         }
     except Exception as e:
         ans = error(e)
-
     write_log(data, ans, sys._getframe().f_code.co_name)
-
     return json.dumps(ans)
-'''
+
+
+@app.route("/api/scholar/add", methods=['POST'])
+def scholar_add():
+    data = json.loads(request.data)
+    try:
+        code = 100
+        scholarID = addScholar(name=data['name'])
+        if not scholarID:
+            code = 404
+        ans = {
+            "code": code,
+            "msg": "OK",
+            "data": {
+                "scholarID": scholarID,
+            }
+        }
+    except Exception as e:
+        ans = error(e)
+    write_log(data, ans, sys._getframe().f_code.co_name)
+    return json.dumps(ans)
+
+
+@app.route("/api/scholar/find_by_kwd", methods=['POST'])
+def scholar_find_by_kwd():
+    data = json.loads(request.data)
+    try:
+        code = 100
+        scholarInfo = findScholarByKwd(kwd=data['keyword'])
+        if not scholarInfo:
+            code = 405
+        ans = {
+            "code": code,
+            "msg": "OK",
+            "data": {
+                "scholarInfo": scholarInfo,
+            }
+        }
+    except Exception as e:
+        ans = error(e)
+    write_log(data, ans, sys._getframe().f_code.co_name)
+    return json.dumps(ans)
 
 
 @app.route("/api/search/paper", methods=['POST'])
@@ -426,14 +493,14 @@ def collection_get_paper_list():
     data = json.loads(request.data)
     try:
         code = 100
-        result = getPaperList(userID=data['userID'], paperListID=data['paperListID'])
-        if not result:
+        paperList = getPaperList(userID=data['userID'], paperListID=data['paperListID'])
+        if not paperList:
             code = 604
         ans = {
             "code": code,
             "msg": "OK",
             "data": {
-                "result": result,
+                "paperList": paperList,
             }
         }
     except Exception as e:
@@ -449,14 +516,14 @@ def collection_get_subscribe_list():
     data = json.loads(request.data)
     try:
         code = 100
-        result = getSubscribeList(userID=data['userID'])
-        if not result:
+        subscribeList = getSubscribeList(userID=data['userID'])
+        if not subscribeList:
             code = 605
         ans = {
             "code": code,
             "msg": "OK",
             "data": {
-                "result": result,
+                "subscribeList": subscribeList,
             }
         }
     except Exception as e:
