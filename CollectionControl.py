@@ -81,13 +81,13 @@ def collectPaper(userID, paperListID, cmd, paperID):
 			return False
 		mydict = {"paperListID": paperListID, "paperID": paperID}
 		found = plcol.find_one(mydict)
-		if cmd:
+		if cmd == "ADD":
 			if not found:
 				plcol.insert_one(mydict)
 				return True
 			else:
 				return False
-		else:
+		elif cmd == "DEL":
 			if found:
 				plcol.delete_one(mydict)
 				return True
