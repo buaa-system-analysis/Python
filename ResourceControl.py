@@ -15,7 +15,7 @@ def comment(userID, resourceID, content):
 
 def findComment(resourceID):
 	try:
-		results = mycol.find({"resourceID" : resourceID})
+		results = mycol.find({"resourceID" : resourceID},{ "_id" : 0 })
 		if (results.count()):
 			return list(results)
 		return []
