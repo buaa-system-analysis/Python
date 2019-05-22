@@ -150,7 +150,7 @@ def user_change_pwd():
     data = json.loads(request.data)
     try:
         code = 100
-        flag = changePassword(userID=data['userID'], oldPassword=data['oldPassword'], newPassword='oldPassword')
+        flag = changePassword(userID=data['userID'], oldPassword=data['oldPassword'], newPassword=data['newPassword'])
         if not flag:
             code = 107
         ans = {
