@@ -2,7 +2,9 @@
 
 #### 前端新需求：
 > id非自定义情况下返回时强制转化为string或者干脆不返回
-﻿
+> CollectionControl
+> manageCollection中，添加其他人的列表的接口不对，应当设立额外的字段，userID为主用户id，还应该有一个userID字段与paperListID联合确立一个paperList
+> 缺少getPaperList的接口，即根据userID得到他的所有paperList，分为createList和collectionList（自己创建的和收藏的他人的）
 
 ## 2019-05-21:
 
