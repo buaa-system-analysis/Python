@@ -3,7 +3,7 @@
 #### 前端新需求：
 > id非自定义情况下返回时强制转化为string或者干脆不返回
 
-> ScholarControl中编辑学者信息缺接口，只预留了一个不明确的data
+> ScholarControl中编辑学者信息缺接口，只预留了一个不明确的data，学者信息请添加 自我介绍，经历列表[{"time": xxx, "exp": xxx},]，paper中请添加发表时间以及发表处{"year": "1980", "publishment": "AAAI"}
 
 > CollectionControl
 
