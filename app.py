@@ -105,7 +105,7 @@ def user_find():
     try:
         code = 100
         user = find(userID=data['userID'])
-        if not user:
+        if user is None:
             code = 105
         ans = {
             "code": code,
@@ -150,7 +150,7 @@ def user_change_pwd():
     data = json.loads(request.data)
     try:
         code = 100
-        flag = changePassword(userID=data['userID'], oldPassword=data['oldPassword'], newPassword='oldPassword')
+        flag = changePassword(userID=data['userID'], oldPassword=data['oldPassword'], newPassword=data['newPassword'])
         if not flag:
             code = 107
         ans = {
@@ -268,7 +268,7 @@ def resource_get_comment():
     try:
         code = 100
         result = findComment(resourceID=data['resourceID'])
-        if not result:
+        if result is None:
             code = 302
         ans = {
             "code": code,
@@ -381,7 +381,7 @@ def scholar_find_by_id():
     try:
         code = 100
         scholarInfo = findScholar(scholarID=data['scholarID'])
-        if not scholarInfo:
+        if scholarInfo is None:
             code = 405
         ans = {
             "code": code,
@@ -402,8 +402,8 @@ def scholar_find_by_kwd():
     try:
         code = 100
         scholarInfo = findScholarByKwd(kwd=data['keyword'])
-        if not scholarInfo:
-            code = 405
+        if scholarInfo is None:
+            code = 406
         ans = {
             "code": code,
             "msg": "OK",
@@ -423,7 +423,7 @@ def search_paper():
     try:
         code = 100
         result = searchPaper(data['keyword'])
-        if not data:
+        if result is None:
             code = 501
         ans = {
             "code": code,
@@ -515,7 +515,7 @@ def collection_get_paper_list():
     try:
         code = 100
         paperList = getPaperList(userID=data['userID'], paperListID=data['paperListID'])
-        if not paperList:
+        if paperList is None:
             code = 604
         ans = {
             "code": code,
@@ -538,7 +538,7 @@ def collection_get_subscribe_list():
     try:
         code = 100
         subscribeList = getSubscribeList(userID=data['userID'])
-        if not subscribeList:
+        if subscribeList is None:
             code = 605
         ans = {
             "code": code,

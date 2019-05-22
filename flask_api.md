@@ -55,7 +55,8 @@ python app.py
 | scholar_auth | /api/scholar/auth | int userID <br> int scholarID, <br> string email | bool flag | 100-正常 <br> 402-学者认证信息添加失败 |
 | scholar_manage | /api/scholar/manage | int userID <br> int cmd <br> double newPrice | bool flag | 100-正常 <br> 403-资源管理操作失败 |
 | scholar_add | /api/scholar/add | string name | int scholarID | 100-正常 <br> 404-学者添加失败 |
-| scholar_find_by_kwd | /api/scholar/find_by_kwd | string keyword | dictionary scholarInfo | 100-正常 <br> 405-按关键词查找学者失败 |
+| scholar_find_by_id | /api/scholar/find_by_id | string scholarID | dictionary scholarInfo | 100-正常 <br> 405-按ID查找学者失败 |
+| scholar_find_by_kwd | /api/scholar/find_by_kwd | string keyword | dictionary scholarInfo | 100-正常 <br> 406-按关键词查找学者失败 |
 | search_paper | /api/search/paper | string category <br> string keyword | list result[{"_id": int, "title": string, "authors": [string], "abstract": string, "publishment":string, "citation": int, "field": [string], "price": double, "fulltextURL": string}, ...] | 100-正常 <br> 501-搜索论文失败 |
 | collection_subscribe | /api/collection/subscribe | int userID <br> int scholarID <br> bool cmd（关注为True，取关为False） | bool flag | 100-正常 <br> 601-关注/取关失败 |
 | collection_paper | /api/collection/paper | int userID <br> int paperListID <br> int cmd（1为添加，0为删除） <br> int paperID | bool flag | 100-正常 <br> 602-添加/收藏文献失败 |
@@ -84,7 +85,8 @@ python app.py
 | 402 | 学者认证信息添加失败 |
 | 403 | 资源管理操作失败 |
 | 404 | 学者添加失败 |
-| 404 | 按关键词查找学者失败 |
+| 405 | 按ID查找学者失败 |
+| 406 | 按关键词查找学者失败 |
 | 501 | 搜索论文失败 |
 | 601 | 关注/取关失败 |
 | 602 | 添加/收藏文献失败 |
