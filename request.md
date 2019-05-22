@@ -3,6 +3,8 @@
 #### 前端新需求：
 > id非自定义情况下返回时强制转化为string或者干脆不返回
 
+> ScholarControl中编辑学者信息缺接口，只预留了一个不明确的data
+
 > CollectionControl
 
 > manageCollection中，添加其他人的列表的接口不对，应当设立额外的字段，userID为主用户id，还应该有一个userID字段与paperListID联合确立一个paperList
