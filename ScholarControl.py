@@ -34,6 +34,28 @@ def authenticate(userID,scholarID, email):
     except:
         return False
 
+def addScholars(id, name, org, citation, h_index, papers, fields):
+    try:
+        new_Scholar = {
+            "_id": id,
+            "name": name,
+            "email": "",
+            "organization": org,
+            "fields":fields,
+            "citation": citation,
+            "h_index": h_index,
+            "g_index":0,
+            "papers": papers,
+            "projects":[],
+            "patents":[],
+            "coAuthors":[],
+            "coOrgs":[]
+        };
+        scholar.insert_one(new_Scholar);
+        return id
+    except:
+        return 0
+
 def addScholar(name):
     try:
         scholar_id = scholar.find().count() + 1
@@ -77,11 +99,18 @@ def findScholar(scholarID):
 def findScholarByKwd(kwd):
     try:
         results = scholar.find({ "$or" : [{"name" : { "$regex" : ".*" + kwd + ".*" } }, {"fields" : { "$regex" : ".*" + kwd + ".*" } }, {"organization" : { "$regex" : ".*" + kwd + ".*" } }]} )
-        if (results.count()):
+        if results.count()>100:
+            data = []
+            for i in range(100):
+                data.append(results.next())
+            return data
+        elif results.count():
             return list(results)
         return []
     except:
         return None
+
+#print(findScholarByKwd('a'))
 
 def deleteScholar(scholarID):
     try:

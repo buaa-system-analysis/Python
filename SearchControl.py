@@ -8,14 +8,38 @@ def searchPaper(keyword):
     paper = mydb['Paper']
     try:
         results = paper.find({'$or':[{'title':{'$regex': keyword, '$options':'i'}},{'authors':{'$regex': keyword, '$options':'i'}},{'abstract':{'$regex': keyword, '$options':'i'}}]})
-        if results.count():
+        if results.count() > 100:
+            data = []
+            for i in range(100):
+                data.append(results.next())
+            return data
+        elif results.count():
             return list(results)
         else:
             return None
     except Exception:
         return None
 
-#print(searchPaper('NLP'))
+#print(searchPaper('a'))
+
+def addPapers(id, title, authors, abstract, publishment, citation, field, price, fulltextURL):
+    paper = mydb['Paper']
+    try:
+        newPaper = {
+            "_id":id,
+            "title":title,
+            "authors":authors,
+            "abstract": abstract,
+            "publishment":publishment,
+            "citation":citation,
+            "field":field,
+            "price":price,
+            "fulltextURL":fulltextURL
+        };
+        result = paper.insert_one(newPaper)
+        #print(result)
+    except:
+        pass
 
 def addPaper(title, authors, abstract, publishment, citation, field, price, fulltextURL):
     paper = mydb['Paper']
@@ -44,6 +68,7 @@ def getPaperByID(paperID):
         return results
     except:
         return None
+
 
 # addPaper(title='Nlp For Term Variant Extraction: Synergy Between Morphology, Lexicon, And Syntax ',
 #          authors=['Christian Jacquemin', 'Evelyne Tzoukermann'],

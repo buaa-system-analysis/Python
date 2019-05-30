@@ -1,8 +1,6 @@
 import requests
 import time
 
-
-
 def getidlist(lens,kwd,header):
 	i = 0
 	idlist = []
