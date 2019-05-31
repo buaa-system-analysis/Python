@@ -292,8 +292,7 @@ def scholar_edit():
         code = 100
         info = {}
         for key in data['info'].keys():
-            if data['info'][key]:
-                info[key] = data['info'][key]
+            info[key] = data['info'][key]
         flag = editScholarInfo(scholarID=data['scholarID'], data=info)
         if not flag:
             code = 401

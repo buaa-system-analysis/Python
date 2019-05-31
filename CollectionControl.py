@@ -118,7 +118,7 @@ def getPaperList(userID,paperListID):
 				if (fd != None):
 					data["collist"].append(fd)
 				else:
-					data["collist"].append({"_id" : 0, "name" : "创建者已删除此列表"})
+					data["collist"].append({"_id" : 0, "name" : "This list has already been deleted by owner"})
 
 			return data
 
