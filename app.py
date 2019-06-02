@@ -7,7 +7,7 @@ from UserControl import login, register, find, editInfo, changePassword, editUse
 from PaperControl import purchase, download
 from ResourceControl import comment, findComment
 from ScholarControl import editScholarInfo, authenticate, manageResource, addScholar, findScholarByKwd, findScholar
-from SearchControl import searchPaper
+from SearchControl import searchPaper, getPaperByID
 from CollectionControl import subscribe, manageCollection, collectPaper, getPaperList, getSubscribeList
 import pymongo
 import time
@@ -292,8 +292,7 @@ def scholar_edit():
         code = 100
         info = {}
         for key in data['info'].keys():
-            if data['info'][key]:
-                info[key] = data['info'][key]
+            info[key] = data['info'][key]
         flag = editScholarInfo(scholarID=data['scholarID'], data=info)
         if not flag:
             code = 401
@@ -423,6 +422,29 @@ def search_paper():
     try:
         code = 100
         result = searchPaper(data['keyword'])
+        if result is None:
+            code = 501
+        ans = {
+            "code": code,
+            "msg": "OK",
+            "data": {
+                "result": result
+            }
+        }
+    except Exception as e:
+        ans = error(e)
+
+    write_log(data, ans, sys._getframe().f_code.co_name)
+
+    return json.dumps(ans)
+
+
+@app.route("/api/search/paper_id", methods=['POST'])
+def search_paper_id():
+    data = json.loads(request.data)
+    try:
+        code = 100
+        result = getPaperByID(data['id'])
         if result is None:
             code = 501
         ans = {
