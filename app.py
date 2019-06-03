@@ -349,8 +349,6 @@ def scholar_getAuth():
     except Exception as e:
         ans = error(e)
 
-    write_log(data, ans, sys._getframe().f_code.co_name)
-
     return json.dumps(ans)
 
 
