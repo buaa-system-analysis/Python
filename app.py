@@ -6,7 +6,7 @@ import json
 from UserControl import login, register, find, editInfo, changePassword, editUserInfo
 from PaperControl import purchase, download
 from ResourceControl import comment, findComment
-from ScholarControl import editScholarInfo, authenticate, manageResource, addScholar, findScholarByKwd, findScholar
+from ScholarControl import editScholarInfo, authenticate, manageResource, addScholar, findScholarByKwd, findScholar, getAuthentication, verification
 from SearchControl import searchPaper, getPaperByID
 from CollectionControl import subscribe, manageCollection, collectPaper, getPaperList, getSubscribeList
 import pymongo
@@ -317,6 +317,51 @@ def scholar_auth():
         flag = authenticate(userID=data['userID'], scholarID=data['scholarID'], email=data['email'])
         if not flag:
             code = 402
+        ans = {
+            "code": code,
+            "msg": "OK",
+            "data": {
+                "flag": flag,
+            }
+        }
+    except Exception as e:
+        ans = error(e)
+
+    write_log(data, ans, sys._getframe().f_code.co_name)
+
+    return json.dumps(ans)
+
+
+@app.route("/api/scholar/getAuth", methods=['POST'])
+def scholar_getAuth():
+    try:
+        code = 100
+        authenticationList = getAuthentication()
+        if authenticationList is None:
+            code =402
+        ans = {
+            "code": code,
+            "msg": "OK",
+            "data": {
+                "authenticationList": authenticationList,
+            }
+        }
+    except Exception as e:
+        ans = error(e)
+
+    write_log(data, ans, sys._getframe().f_code.co_name)
+
+    return json.dumps(ans)
+
+
+@app.route("/api/scholar/verification", methods=['POST'])
+def scholar_verification():
+    data = json.loads(request.data)
+    try:
+        code = 100
+        flag = verification(id = data['id'])
+        if not flag:
+            code =402
         ans = {
             "code": code,
             "msg": "OK",
