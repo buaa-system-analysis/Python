@@ -37,7 +37,7 @@ def authenticate(userID,scholarID, email):
 def getAuthentication():
     try:
         authentication = cklist.find()
-        return authentication
+        return list(authentication)
     except:
         return None
 
