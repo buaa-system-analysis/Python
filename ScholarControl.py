@@ -37,14 +37,16 @@ def authenticate(userID,scholarID, email):
 def getAuthentication():
     try:
         authentication = cklist.find()
+        for item in authentication:
+            item['_id'] = item['_id'].str
         return list(authentication)
     except:
         return None
 
 def verification(id):
     try:
-        cklist.update_one({"_id": id}, {"$set": {"status": "verified"}})
-        verification = cklist.find_one({"_id": id})
+        cklist.update_one({"_id": ObjectId(id)}, {"$set": {"status": "verified"}})
+        verification = cklist.find_one({"_id": ObjectId(id)})
         user.update_one({"_id": verification.userID}, {"$set": {"scholarID": verification.scholarID}})
         return True
     except:
