@@ -34,6 +34,22 @@ def authenticate(userID,scholarID, email):
     except:
         return False
 
+def getAuthentication():
+    try:
+        authentication = cklist.find()
+        return authentication
+    except:
+        return None
+
+def verification(id):
+    try:
+        cklist.update_one({"_id": id}, {"$set": {"status": "verified"}})
+        verification = cklist.find_one({"_id": id})
+        user.update_one({"_id": verification.userID}, {"$set": {"scholarID": verification.scholarID}})
+        return True
+    except:
+        return False
+    
 def addScholars(id, name, org, citation, h_index, papers, fields):
     try:
         new_Scholar = {
