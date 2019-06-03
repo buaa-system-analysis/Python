@@ -28,7 +28,7 @@ def authenticate(userID,scholarID, email):
         
         if len(email)>7:
             if re.match("^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$", email) != None:
-                cklist.insert_one({"_id": cklist.find().length + 1,"userID":userID,"scholarID":scholarID,"email":email,"status":"unfinished"})
+                cklist.insert_one({"_id": cklist.find().count() + 1,"userID":userID,"scholarID":scholarID,"email":email,"status":"unfinished"})
                 return True
             return False
     except:
