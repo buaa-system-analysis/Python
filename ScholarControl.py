@@ -28,7 +28,7 @@ def authenticate(userID,scholarID, email):
         
         if len(email)>7:
             if re.match("^.+\\@(\\[?)[a-zA-Z0-9\\-\\.]+\\.([a-zA-Z]{2,3}|[0-9]{1,3})(\\]?)$", email) != None:
-                cklist.insert_one({"userID":userID,"scholarID":scholarID,"email":email,"status":"unfinished"})
+                cklist.insert_one({"_id": cklist.find().length + 1,"userID":userID,"scholarID":scholarID,"email":email,"status":"unfinished"})
                 return True
             return False
     except:
@@ -37,16 +37,14 @@ def authenticate(userID,scholarID, email):
 def getAuthentication():
     try:
         authentication = cklist.find()
-        for item in authentication:
-            item['_id'] = item['_id'].str
         return list(authentication)
     except:
         return None
 
 def verification(id):
     try:
-        cklist.update_one({"_id": ObjectId(id)}, {"$set": {"status": "verified"}})
-        verification = cklist.find_one({"_id": ObjectId(id)})
+        cklist.update_one({"_id": id}, {"$set": {"status": "verified"}})
+        verification = cklist.find_one({"_id": id})
         user.update_one({"_id": verification.userID}, {"$set": {"scholarID": verification.scholarID}})
         return True
     except:
