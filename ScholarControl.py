@@ -45,7 +45,7 @@ def verification(id):
     try:
         cklist.update_one({"_id": id}, {"$set": {"status": "verified"}})
         verification = cklist.find_one({"_id": id})
-        user.update_one({"_id": verification.userID}, {"$set": {"scholarID": verification.scholarID}})
+        user.update_one({"_id": verification['userID']}, {"$set": {"scholarID": verification['scholarID']}})
         return True
     except:
         return False
